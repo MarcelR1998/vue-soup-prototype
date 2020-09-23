@@ -6,7 +6,11 @@
       <h2>All our soups</h2>
       <!-- Renders a list of all soups -->
       <div v-for="soup in mockSoupData" :key="soup.name">
-        <SoupCard :name="soup.name" :price="soup.price" :imageUrl="soup.imageUrl" />
+        <SoupCard
+          :name="soup.name"
+          :price="soup.price"
+          :imageUrl="soup.imageUrl"
+        />
       </div>
     </div>
   </div>
@@ -14,39 +18,33 @@
 
 <script>
 import SoupCard from "./SoupCard";
+import db from "@/fb";
 
 export default {
   name: "SoupList",
   components: { SoupCard },
+  /*   computed: {
+    mockSoupData() {
+      return this.$store.state.mockSoupData;
+    },
+  }, */
   data() {
     return {
-      mockSoupData: [
-        {
-          name: "Gazpacho",
-          price: 80,
-          imageUrl:
-            "https://imgs.aftonbladet-cdn.se/v2/images/7c85984e-68e3-4524-bec4-d39d0455b7c9?fit=crop&h=593&q=50&w=790&s=79e617553724b5953263a1221decb23db34d0a45",
-        },
-        {
-          name: "Mushroom soup",
-          price: 82,
-          imageUrl:
-            "https://www.budgetbytes.com/wp-content/uploads/2017/09/Creamy-Garlic-Mushroom-Soup-spoon.jpg",
-        },
-        {
-          name: "Lentil soup",
-          price: 70,
-          imageUrl:
-            "https://i2.wp.com/lifemadesimplebakes.com/wp-content/uploads/2019/02/Lentil-Vegetable-Soup.jpg",
-        },
-        {
-          name: "Beef stew",
-          price: 95,
-          imageUrl:
-            "https://chowhound1.cbsistatic.com/assets/2014/09/30301_easy_beef_stew_3000x2000.jpg",
-        },
-      ],
+      mockSoupData: [],
     };
+  },
+  created() {
+    db.collection("soups").onSnapshot((res) => {
+      const changes = res.docChanges();
+      changes.forEach((change) => {
+        if (change.type === "added") {
+          this.mockSoupData.push({
+            ...change.doc.data(),
+            id: change.doc.id,
+          });
+        }
+      });
+    });
   },
 };
 </script>
