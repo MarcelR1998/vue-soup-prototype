@@ -6,6 +6,8 @@
       <div v-for="soup in soupData" :key="soup.id">
         <AdminSoupCard
           :name="soup.name"
+          :description="soup.description"
+          :ingredients="soup.ingredients"
           :price="soup.price"
           :imageUrl="soup.imageUrl"
           :id="soup.id"

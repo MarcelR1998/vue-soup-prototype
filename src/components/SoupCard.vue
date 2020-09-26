@@ -1,6 +1,6 @@
 <template>
   <div class="soupCard">
-    <router-link :to="'/soup/' + name">
+    <router-link :to="'/soup/' + id">
       <!--  <a :href="'http://localhost:8080/soup/'+name"> -->
       <div class="imageContainer">
         <img :src="imageUrl" alt />
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "SoupCard",
-  props: ["name", "price", "imageUrl"],
+  props: ["name", "price", "imageUrl", "id"],
   data() {
     return {};
   },

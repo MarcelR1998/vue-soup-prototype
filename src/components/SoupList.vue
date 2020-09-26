@@ -10,6 +10,7 @@
           :name="soup.name"
           :price="soup.price"
           :imageUrl="soup.imageUrl"
+          :id="soup.id"
         />
       </div>
     </div>
