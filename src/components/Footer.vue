@@ -1,5 +1,5 @@
 <template>
-  <div class="Footer">
+  <div class="footer">
     <p>© Online Soup Delivery</p>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.Footer {
+.footer {
   background-color: black;
   color: white;
   height: 64px;

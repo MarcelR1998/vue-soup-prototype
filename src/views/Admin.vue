@@ -1,42 +1,62 @@
 <template>
-  <div class="soupList">
+  <div class="admin">
     <div class="widthContainer">
-      <h2>Popular</h2>
-
       <h2>All our soups</h2>
       <!-- Renders a list of all soups -->
       <div v-for="soup in soupData" :key="soup.id">
-        <SoupCard
+        <AdminSoupCard
           :name="soup.name"
           :price="soup.price"
           :imageUrl="soup.imageUrl"
+          :id="soup.id"
         />
+      </div>
+      <h2>Add soup</h2>
+      <div id="newSoupForm">
+        <label for="name">Soup name</label>
+        <input type="text" id="name" v-model="name" />
+
+        <label for="price">Soup price (SEK)</label>
+        <input type="number" id="price" v-model="price" />
+
+        <label for="imageUrl">Url to hosted image</label>
+        <input type="text" id="imageUrl" v-model="imageUrl" />
+        <button @click="addSoup">Add soup</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SoupCard from "./SoupCard";
+import AdminSoupCard from "./../components/AdminSoupCard";
 import db from "@/fb";
 
 export default {
-  name: "SoupList",
-  components: { SoupCard },
-  /*   computed: {
-    mockSoupData() {
-      return this.$store.state.mockSoupData;
-    },
-  }, */
+  name: "Admin",
+  components: { AdminSoupCard },
   data() {
     return {
       soupData: [],
+      name: "",
+      price: null,
+      imageUrl: "",
     };
   },
   methods: {
+    addSoup() {
+      if (this.name != "" && this.price != null && this.imageUrl != "") {
+        const newSoup = {
+          name: this.name,
+          price: this.price,
+          imageUrl: this.imageUrl,
+        };
+        db.collection("soups").add(newSoup);
+        this.name = "";
+        this.price = null;
+        this.imageUrl = "";
+      }
+    },
     sortSoupsById() {
-      /*  After a soup is added, it is pushed to the bottom of the list rather than 
-      being orderded how the firestore collection is ordered. This sorts that. */
       this.soupData.sort(function (a, b) {
         if (a.id < b.id) {
           return -1;
@@ -72,8 +92,23 @@ export default {
 </script>
 
 <style scoped>
-.soupList {
+.admin {
   padding: 8px;
   background-color: rgb(250, 250, 250);
+}
+#newSoupForm {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  /*   margin: 8px; */
+}
+#newSoupForm input {
+  border: none;
+  padding: 4px;
+}
+#newSoupForm button {
+  width: fit-content;
+  padding: 4px;
+  margin: 8px auto 0;
 }
 </style>

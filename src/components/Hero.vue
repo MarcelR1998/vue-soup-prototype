@@ -1,5 +1,5 @@
 <template>
-  <div class="Hero">
+  <div class="hero">
     <div class="widthContainer">
       <img src alt />
       <h1>
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-.Hero {
+.hero {
   margin: 96px 8px;
 }
 #addressBarDiv {
