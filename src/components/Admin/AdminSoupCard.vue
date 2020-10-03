@@ -243,16 +243,18 @@ textarea {
   margin: 8px;
   width: fit-content;
   border-radius: 4px;
+  transition: 0.3s;
 }
 .delete {
   color: white;
   background-color: #ef233c;
-  border: 1px solid;
+  border: 1px solid #ef233c;
   padding: 8px;
   margin: 8px;
   width: fit-content;
   float: right;
   border-radius: 4px;
+  transition: 0.3s;
 }
 /* .updateImage:focus,
 .delete:focus {

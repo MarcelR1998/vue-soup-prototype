@@ -13,51 +13,29 @@
           :id="soup.id"
         />
       </div>
-      <h2>Add soup</h2>
-      <div id="newSoupForm">
-        <label for="name">Soup name</label>
-        <input type="text" id="name" v-model="name" />
-
-        <label for="price">Soup price (SEK)</label>
-        <input type="number" id="price" v-model="price" />
-
-        <label for="imageUrl">Url to hosted image</label>
-        <input type="text" id="imageUrl" v-model="imageUrl" />
-        <button @click="addSoup">Add soup</button>
-      </div>
+      <button id="toggleShowFormButton" @click="toggleShowForm">
+        <i class="fas fa-plus"></i>
+      </button>
+      <AddSoupForm v-if="showForm" />
     </div>
   </div>
 </template>
 
 <script>
-import AdminSoupCard from "./../components/AdminSoupCard";
+import AdminSoupCard from "./../components/Admin/AdminSoupCard";
+import AddSoupForm from "./../components/Admin/AddSoupForm";
 import db from "@/fb";
 
 export default {
   name: "Admin",
-  components: { AdminSoupCard },
+  components: { AdminSoupCard, AddSoupForm },
   data() {
     return {
       soupData: [],
-      name: "",
-      price: null,
-      imageUrl: "",
+      showForm: false,
     };
   },
   methods: {
-    addSoup() {
-      if (this.name != "" && this.price != null && this.imageUrl != "") {
-        const newSoup = {
-          name: this.name,
-          price: this.price,
-          imageUrl: this.imageUrl,
-        };
-        db.collection("soups").add(newSoup);
-        this.name = "";
-        this.price = null;
-        this.imageUrl = "";
-      }
-    },
     sortSoupsById() {
       this.soupData.sort(function (a, b) {
         if (a.id < b.id) {
@@ -68,6 +46,9 @@ export default {
         }
         return 0;
       });
+    },
+    toggleShowForm() {
+      this.showForm = !this.showForm;
     },
   },
   created() {
@@ -98,19 +79,21 @@ export default {
   padding: 8px;
   background-color: rgb(250, 250, 250);
 }
-#newSoupForm {
-  display: flex;
-  flex-direction: column;
-  width: 256px;
-  /*   margin: 8px; */
-}
-#newSoupForm input {
+#toggleShowFormButton {
+  position: fixed;
+  color: white;
+  background-color: #20d994;
+  border-radius: 100%;
+  width: 64px;
+  height: 64px;
   border: none;
-  padding: 4px;
+  bottom: 8px;
+  right: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
-#newSoupForm button {
-  width: fit-content;
-  padding: 4px;
-  margin: 8px auto 0;
+#toggleShowFormButton:hover {
+  filter: brightness(0.9);
+  cursor: pointer;
 }
 </style>

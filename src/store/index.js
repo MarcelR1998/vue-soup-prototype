@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    mockSoupData: [
+    cart: {}
+    /* mockSoupData: [
       {
         name: "Gazpacho",
         price: 80,
@@ -30,7 +31,7 @@ export default new Vuex.Store({
         imageUrl:
           "https://chowhound1.cbsistatic.com/assets/2014/09/30301_easy_beef_stew_3000x2000.jpg",
       },
-    ],
+    ], */
   },
   mutations: {
   },
