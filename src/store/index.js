@@ -34,9 +34,65 @@ export default new Vuex.Store({
     ], */
   },
   mutations: {
+    addToCart(state, { id, name, price, amount }) {
+      let localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart[id]) {
+        state.cart[id].id = id;
+        state.cart[id].name = name;
+        state.cart[id].price = price;
+        state.cart[id].amount = localCart[id].amount + amount;
+      } else {
+        state.cart[id] = {
+          id: id,
+          name: name,
+          price: price,
+          amount: amount,
+        };
+      }
+      saveLocalStorage(state, id);
+    },
+    addOne(state, id) {
+      if (state.cart[id].amount < 99) {
+        state.cart[id].amount += 1;
+        saveLocalStorage(state, id)
+      }
+    },
+    removeOne(state, id) {
+      if (state.cart[id].amount > 1) {
+        state.cart[id].amount -= 1;
+        saveLocalStorage(state, id)
+      }
+    },
+    deleteSoup(state, id) {
+      Vue.delete(state.cart, id);
+      console.log("heya!");
+      let localCart = JSON.parse(localStorage.getItem("cart"));
+      delete localCart[id];
+      localStorage.setItem('cart', JSON.stringify(localCart));
+    },
+    initialiseStore(state) {
+      if (localStorage.getItem('cart')) {
+        state.cart = JSON.parse(localStorage.getItem("cart"));
+      } else {
+        console.log("Unable to load localstorage")
+      }
+    },
   },
   actions: {
   },
   modules: {
   }
 })
+
+const saveLocalStorage = (state, id) => {
+  //Creates a copy of existing localstorage, modifies it, and then replaces it, instead of just setting localstorage to whole cart state.
+  //This way, any changes done in a different tab aren't overwritten.
+  //If there is no localstorage, localstorage is set as the cart state.
+  if (localStorage.getItem('cart')) {
+    let localCart = JSON.parse(localStorage.getItem("cart"));
+    localCart[id] = state.cart[id];
+    localStorage.setItem('cart', JSON.stringify(localCart));
+  } else {
+    localStorage.setItem('cart', JSON.stringify(state.cart));
+  }
+}

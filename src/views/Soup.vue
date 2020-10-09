@@ -2,16 +2,18 @@
   <div class="soup">
     <div class="widthContainer">
       <img :src="soup.imageUrl" :alt="soup.name" />
-      <div id="headingFlexContainer">
-        <h2>{{ soup.name }}</h2>
-        <VeganBadge />
+      <div class="contentPaddingContainer">
+        <div id="headingFlexContainer">
+          <h2>{{ soup.name }}</h2>
+          <VeganBadge />
+        </div>
+        <p>{{ soup.description }}</p>
+        <div id="ingredients">
+          <h4>Ingredients:</h4>
+          <span>{{ soup.ingredients }}</span>
+        </div>
+        <ProductToolBar :price="soup.price" :id="id" :name="soup.name" />
       </div>
-      <p>{{ soup.description }}</p>
-      <div id="ingredients">
-        <h4>Ingredients:</h4>
-        <span>{{ soup.ingredients }}</span>
-      </div>
-      <p>{{ soup.price }} SEK</p>
     </div>
   </div>
 </template>
@@ -19,9 +21,10 @@
 <script>
 import db from "@/fb";
 import VeganBadge from "./../components/Soup/VeganBadge";
+import ProductToolBar from "./../components/Soup/ProductToolBar";
 
 export default {
-  components: { VeganBadge },
+  components: { VeganBadge, ProductToolBar },
   data() {
     return {
       id: this.$route.params.id,
@@ -35,7 +38,6 @@ export default {
       .get()
       .then(function (doc) {
         if (doc.exists) {
-          /* console.log(doc.data()); */
           self.soup = doc.data();
         } else {
           // doc.data() will be undefined in this case
@@ -50,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+.contentPaddingContainer {
+  padding: 8px;
+}
 #headingFlexContainer {
   display: flex;
   justify-content: space-between;
@@ -58,6 +63,7 @@ img {
   width: 100%;
   max-height: 256px;
   object-fit: cover;
+  display: block;
 }
 #ingredients h4 {
   margin-bottom: 0;
