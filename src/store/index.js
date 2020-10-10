@@ -74,7 +74,7 @@ export default new Vuex.Store({
       if (localStorage.getItem('cart')) {
         state.cart = JSON.parse(localStorage.getItem("cart"));
       } else {
-        console.log("Unable to load localstorage")
+        localStorage.setItem('cart', JSON.stringify(state.cart));
       }
     },
   },
