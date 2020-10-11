@@ -19,55 +19,14 @@
 
 <script>
 import SoupCard from "./SoupCard";
-import db from "@/fb";
 
 export default {
   name: "SoupList",
   components: { SoupCard },
-  /*   computed: {
-    mockSoupData() {
-      return this.$store.state.mockSoupData;
+  computed: {
+    soupData() {
+      return this.$store.state.soupData;
     },
-  }, */
-  data() {
-    return {
-      soupData: [],
-    };
-  },
-  methods: {
-    sortSoupsById() {
-      /*  After a soup is added, it is pushed to the bottom of the list rather than 
-      being orderded how the firestore collection is ordered. This sorts that. */
-      this.soupData.sort(function (a, b) {
-        if (a.id < b.id) {
-          return -1;
-        }
-        if (a.id > b.id) {
-          return 1;
-        }
-        return 0;
-      });
-    },
-  },
-  created() {
-    db.collection("soups").onSnapshot((res) => {
-      const changes = res.docChanges();
-      changes.forEach((change) => {
-        if (change.type === "added") {
-          this.soupData.push({
-            ...change.doc.data(),
-            id: change.doc.id,
-          });
-          this.sortSoupsById();
-        } else if (change.type === "removed") {
-          this.soupData.forEach((soup, index) => {
-            if (soup.id == change.doc.id) {
-              this.soupData.splice(index, 1);
-            }
-          });
-        }
-      });
-    });
   },
 };
 </script>

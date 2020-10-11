@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ["price", "id", "name"],
+  props: ["price", "id", "name", "imageUrl"],
   data() {
     return {
       amount: 1,
@@ -39,7 +39,8 @@ export default {
       let name = this.name;
       let price = this.price;
       let amount = this.amount;
-      this.$store.commit("addToCart", { id, name, price, amount });
+      let imageUrl = this.imageUrl;
+      this.$store.commit("addToCart", { id, name, price, amount, imageUrl });
     },
   },
 };

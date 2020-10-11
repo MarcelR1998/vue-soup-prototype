@@ -24,52 +24,24 @@
 <script>
 import AdminSoupCard from "./../components/Admin/AdminSoupCard";
 import AddSoupForm from "./../components/Admin/AddSoupForm";
-import db from "@/fb";
 
 export default {
   name: "Admin",
   components: { AdminSoupCard, AddSoupForm },
   data() {
     return {
-      soupData: [],
       showForm: false,
     };
   },
-  methods: {
-    sortSoupsById() {
-      this.soupData.sort(function (a, b) {
-        if (a.id < b.id) {
-          return -1;
-        }
-        if (a.id > b.id) {
-          return 1;
-        }
-        return 0;
-      });
+  computed: {
+    soupData() {
+      return this.$store.state.soupData;
     },
+  },
+  methods: {
     toggleShowForm() {
       this.showForm = !this.showForm;
     },
-  },
-  created() {
-    db.collection("soups").onSnapshot((res) => {
-      const changes = res.docChanges();
-      changes.forEach((change) => {
-        if (change.type === "added") {
-          this.soupData.push({
-            ...change.doc.data(),
-            id: change.doc.id,
-          });
-          this.sortSoupsById();
-        } else if (change.type === "removed") {
-          this.soupData.forEach((soup, index) => {
-            if (soup.id == change.doc.id) {
-              this.soupData.splice(index, 1);
-            }
-          });
-        }
-      });
-    });
   },
 };
 </script>

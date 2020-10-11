@@ -8,6 +8,7 @@
             :name="soup.name"
             :price="soup.price"
             :amount="soup.amount"
+            :imageUrl="soup.imageUrl"
           />
         </li>
       </ul>

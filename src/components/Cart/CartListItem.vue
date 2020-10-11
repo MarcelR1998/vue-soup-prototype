@@ -1,20 +1,25 @@
 <template>
   <div class="cartListItem">
-    <span>{{ name }}</span>
-    <span>{{ price }} SEK</span>
+    <div id="soupInfo">
+      <img :src="imageUrl" alt="" />
+      <div id="titleAndPrice">
+        <span>{{ name }}</span>
+        <span>{{ price }} SEK</span>
+      </div>
+    </div>
     <div>
       <button @click="removeOne">-</button>
       <span>{{ amount }}</span>
       <button @click="addOne">+</button>
-      <button @click="deleteSoup" id="deleteSoup">X</button>
     </div>
+    <button @click="deleteSoup" id="deleteSoup">X</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "cartListItem",
-  props: ["id", "name", "price", "amount"],
+  props: ["id", "name", "price", "amount", "imageUrl"],
   methods: {
     addOne() {
       let id = this.id;
@@ -39,5 +44,17 @@ export default {
 }
 #deleteSoup {
   float: right;
+}
+img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+#soupInfo {
+  display: flex;
+}
+#titleAndPrice {
+  display: flex;
+  flex-direction: column;
 }
 </style>

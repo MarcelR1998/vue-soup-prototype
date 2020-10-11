@@ -1,52 +1,30 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import db from "@/fb";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    soupData: [],
     cart: {}
-    /* mockSoupData: [
-      {
-        name: "Gazpacho",
-        price: 80,
-        imageUrl:
-          "https://imgs.aftonbladet-cdn.se/v2/images/7c85984e-68e3-4524-bec4-d39d0455b7c9?fit=crop&h=593&q=50&w=790&s=79e617553724b5953263a1221decb23db34d0a45",
-      },
-      {
-        name: "Mushroom soup",
-        price: 82,
-        imageUrl:
-          "https://www.budgetbytes.com/wp-content/uploads/2017/09/Creamy-Garlic-Mushroom-Soup-spoon.jpg",
-      },
-      {
-        name: "Lentil soup",
-        price: 70,
-        imageUrl:
-          "https://i2.wp.com/lifemadesimplebakes.com/wp-content/uploads/2019/02/Lentil-Vegetable-Soup.jpg",
-      },
-      {
-        name: "Beef stew",
-        price: 95,
-        imageUrl:
-          "https://chowhound1.cbsistatic.com/assets/2014/09/30301_easy_beef_stew_3000x2000.jpg",
-      },
-    ], */
   },
   mutations: {
-    addToCart(state, { id, name, price, amount }) {
+    addToCart(state, { id, name, price, amount, imageUrl }) {
       let localCart = JSON.parse(localStorage.getItem("cart"));
       if (localCart[id]) {
         state.cart[id].id = id;
         state.cart[id].name = name;
         state.cart[id].price = price;
         state.cart[id].amount = localCart[id].amount + amount;
+        state.cart[id].imageUrl = imageUrl;
       } else {
         state.cart[id] = {
-          id: id,
-          name: name,
-          price: price,
-          amount: amount,
+          id,
+          name,
+          price,
+          amount,
+          imageUrl
         };
       }
       saveLocalStorage(state, id);
@@ -76,6 +54,7 @@ export default new Vuex.Store({
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart));
       }
+      fetchSoups(state);
     },
   },
   actions: {
@@ -95,4 +74,37 @@ const saveLocalStorage = (state, id) => {
   } else {
     localStorage.setItem('cart', JSON.stringify(state.cart));
   }
+}
+
+const fetchSoups = (state) => {
+  db.collection("soups").onSnapshot((res) => {
+    const changes = res.docChanges();
+    changes.forEach((change) => {
+      if (change.type === "added") {
+        state.soupData.push({
+          ...change.doc.data(),
+          id: change.doc.id,
+        });
+        sortSoupsById(state);
+      } else if (change.type === "removed") {
+        state.soupData.forEach((soup, index) => {
+          if (soup.id == change.doc.id) {
+            state.soupData.splice(index, 1);
+          }
+        });
+      }
+    });
+  });
+}
+
+const sortSoupsById = (state) => {
+  state.soupData.sort(function (a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  });
 }

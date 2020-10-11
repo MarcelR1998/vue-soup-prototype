@@ -12,7 +12,12 @@
           <h4>Ingredients:</h4>
           <span>{{ soup.ingredients }}</span>
         </div>
-        <ProductToolBar :price="soup.price" :id="id" :name="soup.name" />
+        <ProductToolBar
+          :price="soup.price"
+          :id="id"
+          :name="soup.name"
+          :imageUrl="soup.imageUrl"
+        />
       </div>
     </div>
   </div>
