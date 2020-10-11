@@ -74,7 +74,7 @@ export default {
 }
 #increaseAmountButton {
   color: #20d994;
-  background-color: #00a0050a;
+  background-color: rgb(0 160 5 / 0.1);
   border: none;
   cursor: pointer;
 }
