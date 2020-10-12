@@ -13,29 +13,48 @@
           />
         </li>
       </ul>
-      <div id="giftSwitcher" @click="toggleGift">
-        <div :class="{ giftSwticherSelected: gift }">
+      <button id="giftSwitcher" @click="toggleGift">
+        <div :class="{ giftSwticherSelected: !gift }">
           <span>For yourself</span>
         </div>
-        <div :class="{ giftSwticherSelected: !gift }">
+        <div :class="{ giftSwticherSelected: gift }">
           <span>Gift</span>
         </div>
-      </div>
-      <h3>Enter your details</h3>
+      </button>
+      <h3>
+        Enter
+        <span v-if="!gift">your</span>
+        <span v-else>recipient</span>
+        details
+      </h3>
       <div id="detailInputs">
         <div class="inputDiv">
           <label for="phone">Phone number</label>
           <input type="tel" name="phone" />
         </div>
-        <div class="inputDiv">
-          <label for="firstName">First name</label>
-          <input type="text" name="firstName" />
-        </div>
-        <div class="inputDiv">
-          <label for="lastName">Last name</label>
-          <input type="text" name="lasttName" />
+        <div class="flexSpaceBetween">
+          <div class="inputDiv">
+            <label for="firstName">First name</label>
+            <input type="text" name="firstName" />
+          </div>
+          <div class="inputDiv">
+            <label for="lastName">Last name</label>
+            <input type="text" name="lasttName" />
+          </div>
         </div>
       </div>
+      <div class="flexSpaceBetween">
+        <span>Address</span>
+        <button @click="toggleEdit('address')" class="editButton">EDIT</button>
+      </div>
+      <p class="smallGreyText" v-if="!editing['address']">{{ address }}</p>
+      <input v-if="editing['address']" type="text" v-model="address" />
+      <div class="flexSpaceBetween">
+        <span>Delivery</span>
+        <button @click="toggleEdit('delivery')" class="editButton">EDIT</button>
+      </div>
+      <p class="smallGreyText" v-if="!editing['delivery']">{{ delivery }}</p>
+      <input v-if="editing['delivery']" type="date" v-model="delivery" />
     </div>
   </div>
 </template>
@@ -49,6 +68,12 @@ export default {
   data() {
     return {
       gift: false,
+      editing: {
+        address: false,
+        delivery: false,
+      },
+      address: "",
+      delivery: new Date().toJSON().slice(0, 10),
     };
   },
   computed: {
@@ -60,6 +85,9 @@ export default {
     toggleGift() {
       this.gift = !this.gift;
     },
+    toggleEdit(state) {
+      this.editing[state] = !this.editing[state];
+    },
   },
 };
 </script>
@@ -67,6 +95,9 @@ export default {
 <style scoped>
 .cart {
   padding: 8px;
+}
+h2 {
+  text-align: center;
 }
 ul {
   list-style: none;
@@ -79,23 +110,43 @@ ul {
   color: white;
   background-color: #dadada;
   height: 32px;
+  width: 100%;
   border-radius: 4px;
+  border: 0;
+  padding: 0;
 }
 #giftSwitcher div {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
+  height: 100%;
 }
 .giftSwticherSelected {
   background-color: #20d994;
 }
-#detailInputs {
+input {
+  border: none;
+  border-bottom: 1px solid black;
+  margin: 8px 0;
+  padding: 4px;
+}
+.flexSpaceBetween {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .inputDiv {
-  width: 50%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+.smallGreyText {
+  color: #9d9d9d;
+  margin: 8px 0;
+}
+.editButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 </style>
