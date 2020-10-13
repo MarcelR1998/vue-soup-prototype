@@ -7,7 +7,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     soupData: [],
-    cart: {}
+    cart: {},
+    customerForm: {
+      delivery: new Date().toJSON().slice(0, 10),
+    }
   },
   mutations: {
     addToCart(state, { id, name, price, amount, imageUrl }) {
@@ -56,6 +59,9 @@ export default new Vuex.Store({
       }
       fetchSoups(state);
     },
+    updateForm(state, customerForm) {
+      state.customerForm = customerForm
+    }
   },
   actions: {
   },
