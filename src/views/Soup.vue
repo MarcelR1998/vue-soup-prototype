@@ -1,5 +1,6 @@
 <template>
   <div class="soup">
+    <BackButton />
     <CartButton />
     <div class="widthContainer">
       <img :src="soup.imageUrl" :alt="soup.name" />
@@ -29,9 +30,10 @@ import db from "@/fb";
 import VeganBadge from "./../components/Soup/VeganBadge";
 import ProductToolBar from "./../components/Soup/ProductToolBar";
 import CartButton from "./../components/CartButton";
+import BackButton from "../components/BackButton";
 
 export default {
-  components: { VeganBadge, ProductToolBar, CartButton },
+  components: { VeganBadge, ProductToolBar, CartButton, BackButton },
   data() {
     return {
       id: this.$route.params.id,

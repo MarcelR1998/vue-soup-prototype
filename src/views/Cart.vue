@@ -1,5 +1,6 @@
 <template>
   <div class="cart">
+    <BackButton />
     <div class="widthContainer">
       <h2>Your order</h2>
       <ul>
@@ -23,10 +24,11 @@
 import CartListItem from "../components/Cart/CartListItem";
 import CustomerDetails from "../components/Cart/CustomerDetails";
 import CartToolBar from "../components/Cart/CartToolBar";
+import BackButton from "../components/BackButton";
 
 export default {
   name: "Cart",
-  components: { CartListItem, CustomerDetails, CartToolBar },
+  components: { CartListItem, CustomerDetails, CartToolBar, BackButton },
   computed: {
     cart() {
       return this.$store.state.cart;

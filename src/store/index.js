@@ -131,14 +131,13 @@ const setCartAmountAndPrice = (state) => {
   //Takes the cart object, and extracts the price and amount of every type of soup in cart.
   Object.keys(state.cart).forEach((key) => {
     amount += state.cart[key].amount;
-    price += Number(state.cart[key].price);
+    price += Number(state.cart[key].price) * state.cart[key].amount;
   })
   if (amount > 0) {
     state.cartAmount = amount
   } else {
     state.cartAmount = 0;
   }
-  price *= amount;
   let vat = Math.round(price * 0.12);
   state.cartPrice["subtotal"] = price - vat;
   state.cartPrice["vat"] = vat;

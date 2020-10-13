@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <router-link class="cartButton" to="/cart">
-      <i class="fas fa-shopping-cart"></i>
-      <span>
-        {{ cartAmount }}
-      </span>
-    </router-link>
-  </div>
+  <router-link class="cartButton" to="/cart">
+    <i class="fas fa-shopping-cart"></i>
+    <span>
+      {{ cartAmount }}
+    </span>
+  </router-link>
 </template>
 
 <script>
