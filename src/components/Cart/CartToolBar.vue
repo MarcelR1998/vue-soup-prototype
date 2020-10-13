@@ -2,24 +2,15 @@
   <div class="cartToolBar">
     <div id="amountControl"></div>
     <button id="addToCartButton">CONTINUE</button>
-    <span id="priceDisplay"
-      >{{
-        Object.keys(cart)
-          .map((key) => {
-            return cart[key].price * cart[key].amount;
-          })
-          .reduce((a, b) => a + b)
-      }}
-      SEK</span
-    >
+    <span id="priceDisplay">{{ cartPrice["total"] }} SEK</span>
   </div>
 </template>
 
 <script>
 export default {
   computed: {
-    cart() {
-      return this.$store.state.cart;
+    cartPrice() {
+      return this.$store.state.cartPrice;
     },
   },
 };

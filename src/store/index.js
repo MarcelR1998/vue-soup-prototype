@@ -8,9 +8,15 @@ export default new Vuex.Store({
   state: {
     soupData: [],
     cart: {},
+    cartAmount: 0,
+    cartPrice: {
+      subtotal: 0,
+      vat: 0,
+      total: 0
+    },
     customerForm: {
       delivery: new Date().toJSON().slice(0, 10),
-    }
+    },
   },
   mutations: {
     addToCart(state, { id, name, price, amount, imageUrl }) {
@@ -30,23 +36,26 @@ export default new Vuex.Store({
           imageUrl
         };
       }
+      setCartAmountAndPrice(state);
       saveLocalStorage(state, id);
     },
     addOne(state, id) {
       if (state.cart[id].amount < 99) {
         state.cart[id].amount += 1;
+        setCartAmountAndPrice(state);
         saveLocalStorage(state, id)
       }
     },
     removeOne(state, id) {
       if (state.cart[id].amount > 1) {
         state.cart[id].amount -= 1;
+        setCartAmountAndPrice(state);
         saveLocalStorage(state, id)
       }
     },
     deleteSoup(state, id) {
       Vue.delete(state.cart, id);
-      console.log("heya!");
+      setCartAmountAndPrice(state);
       let localCart = JSON.parse(localStorage.getItem("cart"));
       delete localCart[id];
       localStorage.setItem('cart', JSON.stringify(localCart));
@@ -54,6 +63,7 @@ export default new Vuex.Store({
     initialiseStore(state) {
       if (localStorage.getItem('cart')) {
         state.cart = JSON.parse(localStorage.getItem("cart"));
+        setCartAmountAndPrice(state);
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart));
       }
@@ -113,4 +123,24 @@ const sortSoupsById = (state) => {
     }
     return 0;
   });
+}
+
+const setCartAmountAndPrice = (state) => {
+  let amount = 0;
+  let price = 0;
+  //Takes the cart object, and extracts the price and amount of every type of soup in cart.
+  Object.keys(state.cart).forEach((key) => {
+    amount += state.cart[key].amount;
+    price += Number(state.cart[key].price);
+  })
+  if (amount > 0) {
+    state.cartAmount = amount
+  } else {
+    state.cartAmount = 0;
+  }
+  price *= amount;
+  let vat = Math.round(price * 0.12);
+  state.cartPrice["subtotal"] = price - vat;
+  state.cartPrice["vat"] = vat;
+  state.cartPrice["total"] = price;
 }

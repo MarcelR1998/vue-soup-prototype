@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <CartButton />
     <Hero />
     <SoupList />
     <Footer />
@@ -12,9 +13,10 @@
 import Hero from "./../components/Home/Hero";
 import SoupList from "./../components/Home/SoupList";
 import Footer from "./../components/Home/Footer";
+import CartButton from "./../components/CartButton";
 
 export default {
   name: "Home",
-  components: { Hero, SoupList, Footer },
+  components: { Hero, SoupList, Footer, CartButton },
 };
 </script>

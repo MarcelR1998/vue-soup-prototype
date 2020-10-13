@@ -1,5 +1,6 @@
 <template>
   <div class="soup">
+    <CartButton />
     <div class="widthContainer">
       <img :src="soup.imageUrl" :alt="soup.name" />
       <div class="contentPaddingContainer">
@@ -27,9 +28,10 @@
 import db from "@/fb";
 import VeganBadge from "./../components/Soup/VeganBadge";
 import ProductToolBar from "./../components/Soup/ProductToolBar";
+import CartButton from "./../components/CartButton";
 
 export default {
-  components: { VeganBadge, ProductToolBar },
+  components: { VeganBadge, ProductToolBar, CartButton },
   data() {
     return {
       id: this.$route.params.id,

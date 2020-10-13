@@ -136,7 +136,7 @@ export default {
       this.editing[state] = !this.editing[state];
     },
     updateSoup(value) {
-      //I don't know why this is requirered, but without it, this.displayName and this.editing states become undefined in scope.
+      //this.displayName and this.editing states become undefined in scope, so I copy the outer "this" scope in a variable
       var self = this;
       //^
       if (this.displayName[value] !== this.inputs[value]) {

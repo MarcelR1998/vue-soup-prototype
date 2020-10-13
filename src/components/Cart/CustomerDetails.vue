@@ -66,26 +66,14 @@
       <p><i class="far fa-clock"></i> Estimated Time of Arrival</p>
       <p>15-20min</p>
     </div>
+    <div v-if="gift">
+      <label for="greeting">Add greeting</label>
+      <textarea name="greeting" id="greeting" cols="30" rows="5"></textarea>
+    </div>
     <hr />
     <div class="flexSpaceBetween smallGreyText">
       <span>Estimated Subtotal</span>
-      <span
-        >{{
-          Object.keys(cart)
-            .map((key) => {
-              return cart[key].price * cart[key].amount;
-            })
-            .reduce((a, b) => a + b) -
-          Math.round(
-            Object.keys(cart)
-              .map((key) => {
-                return cart[key].price * cart[key].amount;
-              })
-              .reduce((a, b) => a + b) * 0.12
-          )
-        }}
-        SEK</span
-      >
+      <span>{{ cartPrice["subtotal"] }} SEK</span>
     </div>
     <div class="flexSpaceBetween smallGreyText">
       <span>Delivery</span>
@@ -93,31 +81,12 @@
     </div>
     <div class="flexSpaceBetween smallGreyText">
       <span>VAT(12%)</span>
-      <span
-        >{{
-          Math.round(
-            Object.keys(cart)
-              .map((key) => {
-                return cart[key].price * cart[key].amount;
-              })
-              .reduce((a, b) => a + b) * 0.12
-          )
-        }}
-        SEK</span
-      >
+      <span>{{ cartPrice["vat"] }} SEK</span>
     </div>
     <div class="flexSpaceBetween">
       <h3 class="priceRemoveBottomMargin">Total</h3>
       <h3 class="priceRemoveBottomMargin">
-        {{
-          Math.round(
-            Object.keys(cart)
-              .map((key) => {
-                return cart[key].price * cart[key].amount;
-              })
-              .reduce((a, b) => a + b)
-          )
-        }}
+        {{ cartPrice["total"] }}
         SEK
       </h3>
     </div>
@@ -147,6 +116,9 @@ export default {
     },
     cart() {
       return this.$store.state.cart;
+    },
+    cartPrice() {
+      return this.$store.state.cartPrice;
     },
   },
   methods: {
@@ -206,6 +178,12 @@ input {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+textarea {
+  resize: none;
+  width: calc(100% - 6px);
+  border-radius: 4px;
+  margin-bottom: 32px;
 }
 .priceRemoveBottomMargin {
   margin-bottom: 0;
