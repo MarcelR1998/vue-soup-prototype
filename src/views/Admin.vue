@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <div class="widthContainer">
-      <h2>All our soups</h2>
+      <h2>Admin</h2>
       <!-- Renders a list of all soups -->
       <div v-for="soup in soupData" :key="soup.id">
         <AdminSoupCard
@@ -13,6 +13,7 @@
           :id="soup.id"
         />
       </div>
+      <button class="but" @click="signOut">Sign out</button>
       <button id="toggleShowFormButton" @click="toggleShowForm">
         <i class="fas fa-plus"></i>
       </button>
@@ -22,6 +23,9 @@
 </template>
 
 <script>
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
 import AdminSoupCard from "./../components/Admin/AdminSoupCard";
 import AddSoupForm from "./../components/Admin/AddSoupForm";
 
@@ -31,6 +35,7 @@ export default {
   data() {
     return {
       showForm: false,
+      loggedIn: false,
     };
   },
   computed: {
@@ -42,6 +47,27 @@ export default {
     toggleShowForm() {
       this.showForm = !this.showForm;
     },
+    setupFirebase() {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in.
+          this.loggedIn = true;
+        } else {
+          // No user is signed in.
+          this.loggedIn = false;
+          this.$router.replace({ name: "Login" });
+        }
+      });
+    },
+    signOut() {
+      firebase.auth().signOut();
+      /*         .then(() => {
+          this.$router.replace({ name: "Login" });
+        }); */
+    },
+  },
+  mounted() {
+    this.setupFirebase();
   },
 };
 </script>
