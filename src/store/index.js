@@ -28,13 +28,13 @@ export default new Vuex.Store({
         state.cart[id].amount = localCart[id].amount + amount;
         state.cart[id].imageUrl = imageUrl;
       } else {
-        state.cart[id] = {
+        Vue.set(state.cart, id, {
           id,
           name,
           price,
           amount,
           imageUrl
-        };
+        });
       }
       setCartAmountAndPrice(state);
       saveLocalStorage(state, id);
