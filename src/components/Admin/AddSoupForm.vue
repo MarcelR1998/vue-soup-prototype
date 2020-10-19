@@ -1,5 +1,6 @@
 <template>
   <div id="addSoupForm">
+    <h2>Add new soup</h2>
     <!-- soup name -->
     <label for="name">Soup name</label>
     <input type="text" id="name" v-model="name" autocomplete="off" />
@@ -87,12 +88,15 @@ export default {
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-#addSoupForm input {
+h2 {
+  margin: auto;
+}
+input {
   border: none;
   padding: 4px;
   border-radius: 4px;
 }
-#addSoupForm button {
+button {
   width: fit-content;
   margin: 16px auto 0;
   color: white;
@@ -102,7 +106,7 @@ export default {
   border-radius: 4px;
   transition: 0.3s;
 }
-#addSoupForm button:hover {
+button:hover {
   filter: brightness(0.9);
   cursor: pointer;
 }

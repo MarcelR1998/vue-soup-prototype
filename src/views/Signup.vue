@@ -1,5 +1,6 @@
 <template>
   <div class="signup">
+    <BackButton />
     <div class="widthContainer">
       <h1>Sign up</h1>
       <form @submit.prevent="pressed">
@@ -19,7 +20,10 @@
 <script>
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import BackButton from "../components/BackButton";
+
 export default {
+  components: { BackButton },
   data() {
     return {
       email: "",

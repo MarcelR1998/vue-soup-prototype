@@ -70,19 +70,27 @@ export default {
   color: #979797;
   background-color: #e5e5e5;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 #increaseAmountButton {
   color: #20d994;
   background-color: rgb(0 160 5 / 0.1);
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 #addToCartButton {
-  background-color: transparent;
   color: white;
+  background-color: #20d994;
   border: none;
   cursor: pointer;
+  height: 70%;
+  transition: 0.3s;
+  border-radius: 8px;
+}
+#addToCartButton:hover {
+  filter: brightness(0.9);
 }
 #priceDisplay {
   width: 96px;

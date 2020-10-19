@@ -1,7 +1,12 @@
 <template>
   <div class="admin">
     <div class="widthContainer">
-      <h2>Admin</h2>
+      <div class="flexSpaceBetween">
+        <h2><i class="fas fa-user-shield"></i> Admin</h2>
+        <button id="signOut" @click="signOut">
+          <i class="fas fa-door-open"></i> Sign out
+        </button>
+      </div>
       <!-- Renders a list of all soups -->
       <div v-for="soup in soupData" :key="soup.id">
         <AdminSoupCard
@@ -13,7 +18,6 @@
           :id="soup.id"
         />
       </div>
-      <button class="but" @click="signOut">Sign out</button>
       <button id="toggleShowFormButton" @click="toggleShowForm">
         <i class="fas fa-plus"></i>
       </button>
@@ -55,7 +59,7 @@ export default {
         } else {
           // No user is signed in.
           this.loggedIn = false;
-          this.$router.replace({ name: "Login" });
+          this.$router.replace("login").catch(() => {});
         }
       });
     },
@@ -77,6 +81,11 @@ export default {
   padding: 8px;
   background-color: rgb(250, 250, 250);
 }
+.flexSpaceBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 #toggleShowFormButton {
   position: fixed;
   color: white;
@@ -90,7 +99,15 @@ export default {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
-#toggleShowFormButton:hover {
+#signOut {
+  border: 1px solid #d8d8d8;
+  background-color: white;
+  padding: 8px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+#toggleShowFormButton:hover,
+#signOut:hover {
   filter: brightness(0.9);
   cursor: pointer;
 }

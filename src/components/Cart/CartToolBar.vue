@@ -45,10 +45,16 @@ export default {
   cursor: pointer;
 }
 #addToCartButton {
-  background-color: transparent;
   color: white;
+  background-color: #20d994;
   border: none;
   cursor: pointer;
+  height: 70%;
+  transition: 0.3s;
+  border-radius: 8px;
+}
+#addToCartButton:hover {
+  filter: brightness(0.9);
 }
 #priceDisplay {
   width: 96px;

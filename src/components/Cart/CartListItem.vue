@@ -79,12 +79,14 @@ img {
   color: #979797;
   background-color: #e5e5e5;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 #increaseAmountButton {
   color: #20d994;
   background-color: rgb(0 160 5 / 0.1);
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 #deleteSoup {
@@ -92,6 +94,7 @@ img {
   color: #ce0000;
   background-color: rgb(206 0 0 / 0.1);
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 </style>

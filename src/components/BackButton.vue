@@ -1,17 +1,12 @@
 <template>
-  <button class="backButton" @click="goBack">
+  <router-link class="backButton" to="/">
     <i class="fas fa-arrow-left"></i>
-  </button>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "BackButton",
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
-  },
 };
 </script>
 
@@ -22,7 +17,7 @@ export default {
   background-color: white;
   text-decoration: none;
   border-radius: 32px;
-  padding: 8px;
+  padding: 12px;
   border: none;
   top: 8px;
   left: 8px;
