@@ -7,11 +7,11 @@
       <div class="contentPaddingContainer">
         <div id="headingFlexContainer">
           <h2>{{ soup.name }}</h2>
-          <VeganBadge />
+          <VeganBadge v-if="loaded" />
         </div>
         <p>{{ soup.description }}</p>
         <div id="ingredients">
-          <h4>Ingredients:</h4>
+          <h4 v-if="loaded">Ingredients:</h4>
           <span>{{ soup.ingredients }}</span>
         </div>
         <ProductToolBar
@@ -38,6 +38,7 @@ export default {
     return {
       id: this.$route.params.id,
       soup: {},
+      loaded: false,
     };
   },
   created() {
@@ -48,6 +49,7 @@ export default {
       .then(function (doc) {
         if (doc.exists) {
           self.soup = doc.data();
+          self.loaded = true;
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");

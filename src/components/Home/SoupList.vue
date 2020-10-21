@@ -46,6 +46,7 @@ export default {
 .soupList {
   padding: 8px;
   background-color: rgb(250, 250, 250);
+  min-height: 100vh;
 }
 .popularSoups {
   display: flex;

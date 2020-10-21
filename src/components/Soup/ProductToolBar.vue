@@ -10,7 +10,11 @@
       <button @click="increaseAmount" id="increaseAmountButton">+</button>
     </div>
     <button @click="addToCart" id="addToCartButton">ADD TO CART</button>
-    <span id="priceDisplay">{{ amount * price }} SEK</span>
+    <!-- If price isn't finished fetching, display loading spinner -->
+    <span v-if="price" id="priceDisplay">{{ amount * price }} SEK</span>
+    <span v-else id="priceDisplay">
+      <i class="fas fa-sync fa-spin"></i>
+    </span>
   </div>
 </template>
 
