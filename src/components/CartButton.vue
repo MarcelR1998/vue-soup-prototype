@@ -1,9 +1,11 @@
 <template>
   <router-link class="cartButton" to="/cart">
     <i class="fas fa-shopping-cart"></i>
-    <span>
-      {{ cartAmount }}
-    </span>
+    <transition name="slide-fade" mode="out-in">
+      <div id="amountDiv" :key="cartAmount">
+        {{ cartAmount }}
+      </div>
+    </transition>
   </router-link>
 </template>
 
@@ -35,5 +37,25 @@ export default {
 .cartButton:hover {
   filter: brightness(0.9);
   cursor: pointer;
+}
+#amountDiv {
+  display: inline-block;
+}
+.fa-shopping-cart {
+  margin-right: 4px;
+}
+.slide-fade-enter-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-enter {
+  transform: translateY(5px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateY(-5px);
+  opacity: 0;
 }
 </style>

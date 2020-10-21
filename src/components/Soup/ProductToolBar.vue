@@ -2,7 +2,11 @@
   <div class="productToolBar">
     <div id="amountControl">
       <button @click="decreaseAmount" id="decreaseAmountButton">-</button>
-      <span>{{ amount }}</span>
+      <transition name="slide-fade" mode="out-in">
+        <div :key="amount">
+          {{ amount }}
+        </div>
+      </transition>
       <button @click="increaseAmount" id="increaseAmountButton">+</button>
     </div>
     <button @click="addToCart" id="addToCartButton">ADD TO CART</button>
@@ -71,30 +75,44 @@ export default {
   background-color: #e5e5e5;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 #increaseAmountButton {
   color: #20d994;
-  background-color: rgb(0 160 5 / 0.1);
+  background-color: rgb(229 245 230);
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 #addToCartButton {
   color: white;
   background-color: #20d994;
   border: none;
-  cursor: pointer;
   height: 70%;
-  transition: 0.3s;
   border-radius: 8px;
 }
-#addToCartButton:hover {
+button {
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
   filter: brightness(0.9);
 }
 #priceDisplay {
   width: 96px;
   text-align: center;
   color: white;
+}
+.slide-fade-enter-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-enter {
+  transform: translateY(5px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateY(-5px);
+  opacity: 0;
 }
 </style>

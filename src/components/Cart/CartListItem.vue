@@ -10,7 +10,11 @@
     <div id="buttons">
       <div id="amountControl">
         <button @click="removeOne" id="decreaseAmountButton">-</button>
-        <span>{{ amount }}</span>
+        <transition name="slide-fade" mode="out-in">
+          <div :key="amount">
+            {{ amount }}
+          </div>
+        </transition>
         <button @click="addOne" id="increaseAmountButton">+</button>
       </div>
       <button @click="deleteSoup" id="deleteSoup">X</button>
@@ -80,21 +84,39 @@ img {
   background-color: #e5e5e5;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 #increaseAmountButton {
   color: #20d994;
-  background-color: rgb(0 160 5 / 0.1);
+  background-color: rgb(229 245 230);
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 #deleteSoup {
   float: right;
   color: #ce0000;
-  background-color: rgb(206 0 0 / 0.1);
+  background-color: #fae5e5;
   border: none;
   border-radius: 4px;
+}
+button {
   cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  filter: brightness(0.9);
+}
+.slide-fade-enter-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-enter {
+  transform: translateY(5px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateY(-5px);
+  opacity: 0;
 }
 </style>
