@@ -1,6 +1,6 @@
 <template>
   <div class="tracking">
-    <BackButton route="/payment" />
+    <BackButton route="/" />
     <div class="widthContainer">
       <img src="../assets/map.png" alt="" />
       <div class="contentPaddingContainer">
@@ -8,59 +8,60 @@
           <i v-if="!steps.delivered" class="fas fa-circle-notch fa-spin"></i>
           {{ message }}
         </h3>
-      </div>
-      <div id="stepsBar">
-        <div
-          class="stepsBarStep"
-          v-bind:class="{ completed: steps.preparing }"
-        ></div>
-        <i class="fas fa-store"></i>
-        <div
-          class="stepsBarStep"
-          v-bind:class="{ completed: steps.dispatched }"
-        ></div>
-        <i class="fas fa-truck"></i>
-        <div
-          class="stepsBarStep"
-          v-bind:class="{ completed: steps.delivered }"
-        ></div>
-        <i class="fas fa-home"></i>
-      </div>
-      <div v-if="steps.delivered">
-        <h3>How was your experience?</h3>
-        <div id="starBar">
-          <i
-            v-bind:class="{ starred: stars > 0 }"
-            @click="setStar(1)"
-            class="fas fa-star"
-          ></i>
-          <i
-            v-bind:class="{ starred: stars > 1 }"
-            @click="setStar(2)"
-            class="fas fa-star"
-          ></i>
-          <i
-            v-bind:class="{ starred: stars > 2 }"
-            @click="setStar(3)"
-            class="fas fa-star"
-          ></i>
-          <i
-            v-bind:class="{ starred: stars > 3 }"
-            @click="setStar(4)"
-            class="fas fa-star"
-          ></i>
-          <i
-            v-bind:class="{ starred: stars > 4 }"
-            @click="setStar(5)"
-            class="fas fa-star"
-          ></i>
+
+        <div id="stepsBar">
+          <div
+            class="stepsBarStep"
+            v-bind:class="{ completed: steps.preparing }"
+          ></div>
+          <i class="fas fa-store"></i>
+          <div
+            class="stepsBarStep"
+            v-bind:class="{ completed: steps.dispatched }"
+          ></div>
+          <i class="fas fa-truck"></i>
+          <div
+            class="stepsBarStep"
+            v-bind:class="{ completed: steps.delivered }"
+          ></div>
+          <i class="fas fa-home"></i>
         </div>
-        <h3>What could we improve?</h3>
-        <div id="improvementButtons">
-          <button class="improvementButton">Delivery</button>
-          <button class="improvementButton">Clarity</button>
-          <button class="improvementButton">Price</button>
-          <button class="improvementButton">Speed</button>
+        <div v-if="steps.delivered">
+          <h3>How was your experience?</h3>
+          <div id="starBar">
+            <i
+              v-bind:class="{ starred: stars > 0 }"
+              @click="setStar(1)"
+              class="fas fa-star"
+            ></i>
+            <i
+              v-bind:class="{ starred: stars > 1 }"
+              @click="setStar(2)"
+              class="fas fa-star"
+            ></i>
+            <i
+              v-bind:class="{ starred: stars > 2 }"
+              @click="setStar(3)"
+              class="fas fa-star"
+            ></i>
+            <i
+              v-bind:class="{ starred: stars > 3 }"
+              @click="setStar(4)"
+              class="fas fa-star"
+            ></i>
+            <i
+              v-bind:class="{ starred: stars > 4 }"
+              @click="setStar(5)"
+              class="fas fa-star"
+            ></i>
+          </div>
+          <h3>What could we improve?</h3>
+          <div id="improvementButtons">
+            <button class="improvementButton">Delivery</button>
+            <button class="improvementButton">Clarity</button>
+            <button class="improvementButton">Price</button>
+            <button class="improvementButton">Speed</button>
+          </div>
         </div>
       </div>
     </div>
@@ -105,11 +106,13 @@ export default {
 <style scoped>
 .contentPaddingContainer {
   padding: 8px;
+  padding-bottom: 64px;
 }
 img {
   width: 100%;
   max-height: 384px;
   object-fit: cover;
+  display: block;
 }
 h3 {
   text-align: center;
@@ -135,11 +138,12 @@ h3 {
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  width: 128px;
+  width: 160px;
 }
 .fa-star {
   color: #c4c4c4;
   cursor: pointer;
+  font-size: 24px;
 }
 .starred {
   color: #f3db00;
