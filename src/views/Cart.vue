@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <BackButton />
+    <BackButton route="/" />
     <div class="widthContainer">
       <h2>Your order</h2>
       <ul>

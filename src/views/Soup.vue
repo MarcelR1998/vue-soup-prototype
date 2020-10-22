@@ -1,6 +1,6 @@
 <template>
   <div class="soup">
-    <BackButton />
+    <BackButton route="/" />
     <CartButton />
     <div class="widthContainer">
       <img :src="soup.imageUrl" :alt="soup.name" />

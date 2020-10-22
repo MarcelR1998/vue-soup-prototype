@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <BackButton />
+    <BackButton route="/" />
     <div class="widthContainer">
       <h1>Login</h1>
       <form @submit.prevent="pressed">

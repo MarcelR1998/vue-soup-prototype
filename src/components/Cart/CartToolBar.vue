@@ -1,8 +1,10 @@
 <template>
   <div class="cartToolBar">
-    <div id="amountControl"></div>
-    <button id="addToCartButton">CONTINUE</button>
-    <span id="priceDisplay">{{ cartPrice["total"] }} SEK</span>
+    <!--     <div id="amountControl"></div> -->
+    <router-link to="/payment">
+      <button id="addToCartButton">CONTINUE</button>
+    </router-link>
+    <!-- <span id="priceDisplay">{{ cartPrice["total"] }} SEK</span> -->
   </div>
 </template>
 
@@ -20,7 +22,8 @@ export default {
 .cartToolBar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   background-color: #20d994;
   height: 48px;
   position: fixed;
@@ -52,6 +55,12 @@ export default {
   height: 70%;
   transition: 0.3s;
   border-radius: 8px;
+}
+a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 #addToCartButton:hover {
   filter: brightness(0.9);

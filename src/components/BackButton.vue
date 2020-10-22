@@ -1,5 +1,5 @@
 <template>
-  <router-link class="backButton" to="/">
+  <router-link class="backButton" :to="route">
     <i class="fas fa-arrow-left"></i>
   </router-link>
 </template>
@@ -7,6 +7,7 @@
 <script>
 export default {
   name: "BackButton",
+  props: ["route"],
 };
 </script>
 
