@@ -60,6 +60,8 @@ form {
 input {
   padding: 8px;
   margin: 8px;
+  background-color: rgb(250, 250, 250, 1);
+  border: none;
 }
 .loginButton {
   color: white;
@@ -67,7 +69,6 @@ input {
   border: 1px solid rgb(32, 217, 148, 1);
   padding: 8px;
   margin: 8px;
-  width: fit-content;
   border-radius: 4px;
   transition: 0.3s;
 }

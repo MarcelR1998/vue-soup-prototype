@@ -16,7 +16,15 @@
             spellcheck="false"
           />
         </div>
-        <button :disabled="address == ''">Check</button>
+        <button @click="showNotificationHandler" :disabled="address == ''">
+          Check
+        </button>
+      </div>
+      <div v-if="showNotification" id="notification">
+        <span><i class="fas fa-sun fa-spin"></i> Yay! We deliver to you!</span>
+        <button @click="closeNotification" id="closeButton">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -28,14 +36,27 @@ export default {
   data() {
     return {
       address: "",
+      showNotification: false,
     };
+  },
+  methods: {
+    showNotificationHandler() {
+      this.showNotification = true;
+    },
+    closeNotification() {
+      this.showNotification = false;
+    },
   },
 };
 </script>
 
 <style scoped>
 .hero {
-  margin: 96px 8px;
+  padding: 96px 8px;
+  background-image: url(/img/soupDrawing.bd205d34.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 #addressBarDiv {
   display: flex;
@@ -71,5 +92,30 @@ input {
 }
 #inputDiv:focus-within {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+#notification {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 8px;
+  color: white;
+  background-color: rgb(32, 217, 148, 1);
+  border-radius: 32px;
+  padding: 12px;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+}
+#closeButton {
+  color: white;
+  background-color: #20d994;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 8px;
+}
+#closeButton:hover {
+  filter: brightness(0.9);
 }
 </style>

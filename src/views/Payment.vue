@@ -6,16 +6,18 @@
       <h3>Credit card</h3>
       <MastercardCreditCard />
       <VisaCreditCart />
+
       <!-- Card number -->
       <div class="inputDiv">
         <label for="cardNumber">Card number</label>
         <input type="number" name="cardNumber" />
       </div>
-      <div class="flexSpaceBetween">
+      <!-- Security info -->
+      <div class="securityInfo">
         <!-- Expiry date -->
         <div class="inputDiv">
           <label for="expiryDate">Expiry date</label>
-          <div class="flexSpaceBetween">
+          <div class="flexAlignCenter">
             <input class="short" type="text" name="expiryDate" />
             /
             <input class="short" type="text" name="expiryDate2" />
@@ -76,7 +78,6 @@ label {
   margin-top: 8px;
 }
 .inputDiv {
-  width: 45%;
   display: flex;
   flex-direction: column;
 }
@@ -85,13 +86,19 @@ input {
   border-bottom: 1px solid black;
   margin: 8px 0;
   padding: 4px;
+  max-width: 256px;
 }
-.flexSpaceBetween {
+.securityInfo {
+  display: flex;
+  justify-content: space-between;
+  max-width: 256px;
+}
+.flexAlignCenter {
   display: flex;
   align-items: center;
 }
 .short {
-  width: 10%;
+  width: 32px;
 }
 #payButton {
   color: white;
