@@ -20,7 +20,11 @@
           Check
         </button>
       </div>
-      <div v-if="showNotification" id="notification">
+      <div
+        v-if="showNotification"
+        class="notification"
+        v-bind:class="{ fadeIn: fadeIn }"
+      >
         <span><i class="fas fa-sun fa-spin"></i> Yay! We deliver to you!</span>
         <button @click="closeNotification" id="closeButton">
           <i class="fas fa-times"></i>
@@ -37,14 +41,21 @@ export default {
     return {
       address: "",
       showNotification: false,
+      fadeIn: false,
     };
   },
   methods: {
     showNotificationHandler() {
       this.showNotification = true;
+      setTimeout(() => {
+        this.fadeIn = true;
+      });
     },
     closeNotification() {
-      this.showNotification = false;
+      this.fadeIn = false;
+      setTimeout(() => {
+        this.showNotification = false;
+      }, 300);
     },
   },
 };
@@ -68,12 +79,17 @@ export default {
   border: none;
   cursor: pointer;
   color: white;
+  cursor: pointer;
+  transition: 0.3s;
 }
 #addressBarDiv button:disabled {
   background-color: rgb(217, 217, 217);
   border: none;
   cursor: initial;
   color: white;
+}
+#addressBarDiv button:hover:enabled {
+  filter: brightness(0.9);
 }
 #inputDiv {
   display: flex;
@@ -93,10 +109,10 @@ input {
 #inputDiv:focus-within {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-#notification {
+.notification {
   position: fixed;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -32px);
   top: 8px;
   color: white;
   background-color: rgb(32, 217, 148, 1);
@@ -105,6 +121,8 @@ input {
   border: none;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   width: fit-content;
+  opacity: 0;
+  transition: 0.3s;
 }
 #closeButton {
   color: white;
@@ -117,5 +135,9 @@ input {
 }
 #closeButton:hover {
   filter: brightness(0.9);
+}
+.fadeIn {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 </style>
