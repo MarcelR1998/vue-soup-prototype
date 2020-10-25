@@ -53,7 +53,7 @@ export default {
 <style scoped>
 .hero {
   padding: 96px 8px;
-  background-image: url(/img/soupDrawing.bd205d34.svg);
+  background-image: url(../../assets/coverPhoto.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
