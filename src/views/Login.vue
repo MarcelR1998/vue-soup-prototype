@@ -9,10 +9,10 @@
         <button class="loginButton">Login</button>
       </form>
       <div class="error" v-if="error">{{ error.message }}</div>
-      <div>
+      <!-- <div>
         Don't have an account?
         <router-link to="/signup">Sign up</router-link>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
