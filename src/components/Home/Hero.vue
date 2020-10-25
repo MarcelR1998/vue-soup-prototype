@@ -56,7 +56,7 @@ export default {
   background-image: url(../../assets/coverPhoto.jpg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
 }
 #addressBarDiv {
   display: flex;
